@@ -29,7 +29,7 @@ class Map(object):
         self.__make_available_neighbours_representation()
 
     def reset_map(self):
-        self.content = [['' for i in range(self.width)] for y in range(self.height)]
+        self.content = [list(row) for row in self.__base_content]
         self.__find_positions_of_interest()
         self.__find_pellet_positions()
         self.__make_available_neighbours_representation()
