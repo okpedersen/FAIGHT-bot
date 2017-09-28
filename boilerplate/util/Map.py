@@ -1,6 +1,7 @@
 import heapq
 import math
 import random
+from copy import deepcopy
 class Map(object):
     def __init__(self,height=31,width=28,pellets_left=240):
         self.height = height
@@ -29,7 +30,8 @@ class Map(object):
         self.__make_available_neighbours_representation()
 
     def reset_map(self):
-        self.content = [list(row) for row in self.__base_content]
+        self.content = deepcopy(self.__base_content)
+        #self.content = [list(row) for row in self.__base_content]
         self.__find_positions_of_interest()
         self.__find_pellet_positions()
         self.__make_available_neighbours_representation()
@@ -183,10 +185,10 @@ class Map(object):
         return self.__get_path(came_from)
 
     def heuristic(self,start,goal):
-        return self.get_euclidean_dist(start,goal)
+        return self.get_manhattan_dist(start,goal)
 
     def move_cost(self,pos1,pos2):
-        return 0.0
+        return 1
 
     def is_blocked(self, map_char):
         return map_char != self.icon.open and map_char != self.icon.pellet and map_char != self.icon.super_pellet and map_char != self.icon.door
